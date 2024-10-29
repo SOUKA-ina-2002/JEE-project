@@ -18,7 +18,7 @@
 		
 		<div class="form-group">
 		<label class="control-label">ID</label>
-		<input type="text" name="designation" class="form-control" required="required" value="${produit.id}"/>
+		<input type="text" name="id" class="form-control" required="required" value="${produit.id}"/>
 		<span></span>
 		</div>
 		

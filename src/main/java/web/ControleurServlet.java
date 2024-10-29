@@ -79,8 +79,10 @@ public class ControleurServlet extends HttpServlet{
 		else if(path.equals("/Editer.as")&&(req.getMethod().equals("POST"))) {
 			String id= req.getParameter("id");
 			
-			
-			Produit p=new Produit(req.getParameter("designation"),Double.parseDouble(req.getParameter("prix")),Integer.parseInt(req.getParameter("quantity")));
+			String designation=req.getParameter("designation");
+			double prix=Double.parseDouble(req.getParameter("prix"));
+			int quantity=Integer.parseInt(req.getParameter("quantity"));
+			Produit p=new Produit(designation,prix,quantity);
 			
 			if (id != null && !id.isEmpty()) {
 				p.setId(Long.parseLong(id));
