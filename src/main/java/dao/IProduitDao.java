@@ -7,7 +7,7 @@ import metier.entities.Produit;
 public interface IProduitDao {
    public Produit save (Produit p);
    public List<Produit> produitsParMc(String mc);
-   public Produit getProguit(Long id);
+   public Produit getProduit(Long id);
    public Produit update(Produit p);
    public void deleteProduit(Long id);
    }

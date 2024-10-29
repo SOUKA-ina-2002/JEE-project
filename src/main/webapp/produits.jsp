@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
+  <%@include file="header.jsp" %>
   <div class="container col-md-8 col-md-offset-2">
 	<div class="panel panel-primary">
 		<div class="panel-heading">Rechercher des produits
@@ -19,18 +20,23 @@
 			<button type="submit" class="btn btn-primary">chercher</button>
 			</form>
 			
-			<table class="table">
+			<table class="table table-striped">
+			
 			<tr>
 			<th>id</th><th>Designation</th><th>Prix</th><th>Quantité</th>
 			</tr>
+			
 			<c:forEach items="${modele.produits}" var="p">
 			<tr>
 			<td>${p.id}</td>
 			<td>${p.designation}</td>
 			<td>${p.prix}</td>
-			<td>${p.quantity}</td>
+			<td>${p.quantity}</td>			
+			<td><a href="Edit.as?id=${p.id}">Editer</a></td>
+			<td><a onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');" href="Supprimer.as?id=${p.id}" >Supprimer</a></td>
 			</tr>
 			</c:forEach>
+			
 			</table>
 		
 		 </div>

@@ -8,6 +8,7 @@ import metier.entities.Produit;
 public class ProduitModel {
 	private String mc;
 	private List<Produit> produits= new ArrayList<Produit>();
+	
 	public String getMc() {
 		return mc;
 	}

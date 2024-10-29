@@ -27,6 +27,8 @@ public class ProduitDaoImplem implements IProduitDao {
 			if(rs.next()) {
 				p.setId(rs.getLong("MAX_ID"));
 			}
+			
+			ps2.close();
 			ps.close();
 			
 		} catch (SQLException e) {
@@ -57,6 +59,8 @@ public class ProduitDaoImplem implements IProduitDao {
 			
 			produits.add(p);
 		}
+		
+		  ps.close();
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -66,21 +70,72 @@ public class ProduitDaoImplem implements IProduitDao {
 	}
 
 	@Override
-	public Produit getProguit(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Produit getProduit(Long id) {
+	       Produit p=null;
+		   Connection conn=SingletonConn.getConn();
+		   
+		   try {
+			PreparedStatement ps=conn.prepareStatement("SELECT *FROM PRODUITS WHERE id=?");
+			ps.setLong(1, id);
+			
+			ResultSet rs=ps.executeQuery();
+			
+			if (rs.next()) {
+			    p= new Produit();
+				p.setId(rs.getLong("id"));
+				p.setDesignation(rs.getString("Designation"));
+				p.setPrix(rs.getDouble("prix"));
+				p.setQuantity(rs.getInt("quantity"));
+				
+			}
+			
+			ps.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		   
+			return p;
 	}
 
 	@Override
 	public Produit update(Produit p) {
-		// TODO Auto-generated method stub
-		return null;
+	    Connection conn = SingletonConn.getConn();
+	    try {
+	        PreparedStatement ps = conn.prepareStatement("UPDATE PRODUITS SET Designation = ?, prix = ?, quantity = ? WHERE id = ?");
+	        ps.setString(1, p.getDesignation());
+	        ps.setDouble(2, p.getPrix());
+	        ps.setInt(3, p.getQuantity());
+	        ps.setLong(4, p.getId());
+
+	        ps.executeUpdate();
+	        ps.close();
+
+	    } catch (SQLException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    }
+
+	    return p;
 	}
+
 
 	@Override
 	public void deleteProduit(Long id) {
-		// TODO Auto-generated method stub
-		
+         Connection connection=SingletonConn.getConn();
+         
+        try {
+			PreparedStatement ps=connection.prepareStatement("DELETE FROM PRODUITS WHERE id=?");
+			ps.setLong(1, id);
+			
+			ps.executeUpdate();
+			
+			ps.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
